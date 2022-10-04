@@ -1,0 +1,4 @@
+use("local")
+db.student.find()
+db.student.insert({"name":"Raj","age":20,"city":"Bangalore"})
+db.student.find()
