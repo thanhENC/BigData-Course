@@ -1,4 +1,17 @@
-use("local")
-db.student.find()
-db.student.insert({"name":"Raj","age":20,"city":"Bangalore"})
-db.student.find()
+use("local");
+// db.createCollection("test");
+db.test.insert([
+    // {_id:1, name:"A", score:[20, 30, 40]},
+    // {_id:2, name:"B", score:[24, 32, 39]},
+    // {_id:3, name:"C", score:[22, 33, 41]},
+    // {_id:4, name:"D", score:[21, 31, 42]},
+    // {_id:5, name:"E", score:[23, 34, 43]},
+    // {_id:6, name:"F", score:[25, 35, 44]},
+    // {_id:7, name:"G", score:[26, 36, 45]},
+    // {_id:8, name:"H", score:[27, 37, 46]},
+    // {_id:9, name:"I", score:[28, 38, 47]},
+    {_id:10, name:"J", score:[45, 46, 48]}
+    ]);
+
+db.test.find()
+db.test.find({score:{$gt:40, $lt:45}});
