@@ -1,0 +1,91 @@
+==PySpark=======================================================================================
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.1 9_NPL_Streaming_Demo0.py
+---
+--
+pip install kafka-python
+---
+--Source code of 9_NPL_Streaming_Demo0.py shown as below
+KAFKA_TOPIC = "MyTopic000"
+KAFKA_SERVER = "localhost:9092"
+
+# creating an instance of SparkSession
+spark_session = SparkSession.builder.appName("Python Spark create RDD").getOrCreate()
+
+# Subscribe to 1 topic
+df = spark_session.readStream.format("kafka").option("kafka.bootstrap.servers", KAFKA_SERVER).option("subscribe", KAFKA_TOPIC).load()
+print(df.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)"))
+
+==Python=======================================================================================
+python3 9_streaming_producer1.py
+--Source code of 9_streaming_producer1.py shown as below
+print("--*--"*20)
+# Import KafkaProducer from Kafka library
+from kafka import KafkaProducer
+
+# Define server with port
+bootstrap_servers = ['localhost:9092']
+
+# Define topic name where the message will publish
+topicName = 'MyNewTopic'
+
+# Initialize producer variable
+producer = KafkaProducer(bootstrap_servers = bootstrap_servers)
+producer.flush()
+
+# Publish text in defined topic
+producer.send(topicName, b'This topic will sent to...')
+print("--*--"*20)
+# Print message
+print("Message Sent")
+producer.close()
+=================================================
+python3 9_streaming_consumer1.py
+--Source code of 9_streaming_consumer1.py shown as below
+# Import KafkaConsumer from Kafka library
+from kafka import KafkaConsumer
+
+# Import sys module
+import sys
+
+# Define server with port
+bootstrap_servers = ['localhost:9092']
+
+# Define topic name from where the message will recieve
+topicName = 'MyNewTopic'
+
+# Initialize consumer variable
+consumer = KafkaConsumer (topicName, group_id ='group1',bootstrap_servers = bootstrap_servers)
+
+# Read and print message from consumer
+for msg in consumer:
+    print("Topic Name: ",msg.topic, "Message:",msg.value)
+
+# Terminate the script
+sys.exit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

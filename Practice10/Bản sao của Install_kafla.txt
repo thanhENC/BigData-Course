@@ -1,0 +1,13 @@
+---Install Kafka.
+wget http://apache.mirror.cdnetworks.com/kafka/0.10.1.0/kafka_2.11-0.10.1.0.tgz
+tar -tzf kafka_2.11-0.10.1.0.tgz
+
+---Use the convenience script packaged with kafka to get a quick-and-dirty single-node ZooKeeper instance:
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+---Start the Kafka server:
+$ bin/kafka-server-start.sh config/server.properties
+
+---Create a topic named "test" with a single partition and only one replica:
+---To test Kafka, create a sample topic with name "testing" in Apache Kafka using the following command:
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
