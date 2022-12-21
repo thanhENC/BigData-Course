@@ -3,6 +3,7 @@ import streamlit as st
 import os
 import numpy as np
 import joblib
+from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 
 st.title('DỰ ĐOÁN BÁN CHÉO')
