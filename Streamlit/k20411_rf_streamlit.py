@@ -8,7 +8,7 @@ import pandas as pd
 
 st.title('DỰ ĐOÁN BÁN CHÉO')
 st.write('''
-# Bán chéo đeiii
+# Dự đoán bán chéo từ các mô hình do nhóm thực hiện
 ---
 ''')
 
@@ -21,6 +21,13 @@ button = st.button("Dự đoán")
 st.write('''
 # Kết quả
 ''')
+
+side = st.sidebar
+side.title('Nhóm Phạm Nguyễn Hiền Phương')
+side.write('''
+## Lớp K20411
+''')
+side.image('https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/315169072_502486661897201_7974025752979732935_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=730e14&_nc_ohc=lt9d3JHS99sAX_SZpC5&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfCHnrQ1o-NQjS5Xvc0m_i0lBqYZQYkseKTK642mRaju4w&oe=63A70FFF')
 
 result = {
     0: 'Không thể bán chéo',
@@ -39,6 +46,8 @@ def predict(model, input_df):
     return predictions[0]
 
 def user_input_features():
+    global vehicle_damage
+    global previous_insurance
     vehicle_age_0, vehicle_age_1, vehicle_age_2 = [0.0, 0.0, 0.0]
     if vehicle_age < 1.0:
         vehicle_age_0 = 1.0
@@ -61,9 +70,6 @@ def main():
     if button:
         input_df = user_input_features()
         prediction = predict(rfModel, input_df)
-        st.write('''
-        # Kết quả
-        ''')
         st.write(result[prediction])
 
 if __name__ == '__main__':
